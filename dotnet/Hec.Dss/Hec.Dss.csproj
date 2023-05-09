@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="hecdss" Version="7.0.0" />
+    <PackageReference Include="hecdss" Version="7.0.2" />
   </ItemGroup>
   
 </Project>
