@@ -19,10 +19,10 @@ cd native-lib\linux
 Invoke-WebRequest -URI $linux -OutFile libhecdss.zip
 cmd /r 7z e libhecdss.zip
 
-
+cd ..\..
 Remove-Item -Recurse -Force native-lib\win
 New-Item -Type Directory -Path native-lib\win
-cd ..\win
+cd native-lib\win
 Invoke-WebRequest -URI $win -OutFile hecdss.zip
 cmd /r 7z e hecdss.zip
 cd ..\..
