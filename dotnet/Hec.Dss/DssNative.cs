@@ -13,7 +13,11 @@ internal class DssNative
   [DllImport("hecdss")]
    public static extern int hec_dss_open(string fileName, out IntPtr dss);
 
-   [DllImport("hecdss")]
+
+  [DllImport("hecdss")]
+  public static extern int hec_dss_convertToVersion7(string fileName6, string fileName7);
+
+  [DllImport("hecdss")]
    public static extern int hec_dss_close(IntPtr dss);
 
    [DllImport("hecdss")]

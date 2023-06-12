@@ -8,10 +8,11 @@ if( Test-Path -Path native-lib\win\hecdss.dll ){
 }
 else{
 $baseURL = "https://www.hec.usace.army.mil/nexus/repository/maven-public/mil/army/usace/hec/hecdss/"
-$version = "7-IQ-12"
+$win_version = "7-IR-0a"
+$linux_version = "7-IR-0"
 
-$linux = $baseURL + $version+ "-linux-x86_64/hecdss-" + $version +"-linux-x86_64.zip"
-$win = $baseURL + $version+ "-win-x86_64/hecdss-" + $version +"-win-x86_64.zip"
+$linux = $baseURL + $linux_version+ "-linux-x86_64/hecdss-" + $linux_version +"-linux-x86_64.zip"
+$win = $baseURL + $win_version+ "-win-x86_64/hecdss-" + $win_version +"-win-x86_64.zip"
 
 Remove-Item -Recurse -Force native-lib\linux
 New-Item -Type Directory -Path native-lib\linux

@@ -10,6 +10,18 @@ namespace Hec.Dss
 
     }
 
+    /// <summary>
+    /// Converts from DSS version 6 to DSS version 7.
+    /// </summary>
+    /// <param name="fileName6"></param>
+    /// <param name="fileName7"></param>
+    /// <returns>zero if sucessful, otherwise returns an integer error code</returns>
+    public static int ConvertFromDSS6ToDSS7(string fileName6, string fileName7)
+    {
+     int status = DssNative.hec_dss_convertToVersion7(fileName6, fileName7);
+      return status;
+    }
+
     public int Write(TimeSeriesProfile profile, bool saveAsFloat = false)
     {
       throw new NotImplementedException("TimeSeriesProfile profile");
