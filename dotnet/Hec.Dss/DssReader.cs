@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -44,7 +45,17 @@ namespace Hec.Dss
     {
       OpenDssFile(filename,messageLevel);
     }
-
+    /// <summary>
+    /// returns DSS version 
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <returns>version or zero on error/invalid file</returns>
+    public static int GetVersion(string fileName)
+    {
+      if (!File.Exists(fileName))
+        return 0;
+      return DssNative.hec_dss_getVersion(fileName);
+    }
     
     private void OpenDssFile(string filename, int messageLevel)
     {
