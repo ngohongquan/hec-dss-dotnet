@@ -189,11 +189,9 @@ namespace Hec.Dss
     public int StoreLocation(string dssPath, LocationInformation loc, bool overwrite = false)
     {
 
-      var timeZoneName = new ByteString(loc.TimeZoneName);
-      var supplemental = new ByteString(loc.Supplemental);
       int status = DssNative.hec_dss_locationStore(dss, dssPath, loc.XOrdinate, loc.YOrdinate, loc.ZOrdiante,
          (int)loc.CoordinateSystem, loc.CoordinateID, loc.HorizontalUnits, loc.HorizontalDatum,
-         loc.VerticalUnits, loc.VerticalDatum, timeZoneName.Data, supplemental.Data, overwrite? 1:0);
+         loc.VerticalUnits, loc.VerticalDatum, loc.TimeZoneName, loc.Supplemental, overwrite? 1:0);
       return status;
     }
 
@@ -206,32 +204,20 @@ namespace Hec.Dss
     /// <param name="grid">the grid you want to store</param>
     public void Write(Grid grid)
     {
-      
-      
-      //DssNative.hec_dss_gridStore(dss,grid.PathName,grid.GridType,grid.DataType,
-      //  grid.LowerLeftCellX, grid.LowerLeftCellY,
-      //  grid.NumberOfCellsX, grid.NumberOfCellsY,
-      //  grid.RangeLimitTable.Length, grid.SRSDefinitionType,
-      //  grid.TimeZoneRawOffset, grid.IsInterval, grid.IsTimeStamped,
-      //  grid.Units, grid.DataSource
+      int status = DssNative.hec_dss_gridStore(dss, grid.PathName, (int)grid.GridType,
+   (int)grid.DataType,
+   grid.LowerLeftCellX, grid.LowerLeftCellY,
+   grid.NumberOfCellsX, grid.NumberOfCellsY,
+   grid.RangeLimitTable.Length, grid.SRSDefinitionType,
+   grid.TimeZoneRawOffset, grid.IsInterval ? 1 : 0, grid.IsTimeStamped ? 1 : 0,
+   grid.Units, grid.DataSource,
+   grid.SRSName, grid.SRSDefinition,
+   grid.TimeZoneID, grid.CellSize, grid.XCoordOfGridCellZero,
+   grid.YCoordOfGridCellZero, grid.NullValue, grid.MaxDataValue, grid.MinDataValue,
+   grid.MeanDataValue, grid.RangeLimitTable, grid.NumberEqualOrExceedingRangeLimit,
+   grid.Data, grid.Data.Length);
 
-
-      /*
-        gs.DataUnits = grid.DataUnits;
-        gs.DataType = (int)grid.DataType;
-        gs.LowerLeftCellX = grid.LowerLeftCellX;
-        gs.LowerLeftCellY = grid.LowerLeftCellY;
-        gs.NumberOfCellsX = grid.NumberOfCellsX;
-        gs.NumberOfCellsY = grid.NumberOfCellsY;
-        gs.CellSize = grid.CellSize;
-        gs.MaxDataValue = grid.MaxDataValue;
-        gs.MinDataValue = grid.MinDataValue;
-        gs.MeanDataValue = grid.MeanDataValue;
-        gs.NumberOfRanges = grid.NumberOfRanges;
-        gs.RangeLimitTable = grid.RangeLimitTable;
-        gs.NumberEqualOrExceedingRangeLimit = grid.NumberEqualOrExceedingRangeLimit;
-      */
-
+      Console.WriteLine(status);
     }
 
     /// <summary>
@@ -261,22 +247,16 @@ namespace Hec.Dss
 
     public void Write(PairedData pd)
     {
-      throw new NotImplementedException("NotU+0020supportedU+0020yet.");
-      /*
-      int storageFlag = 2; // store as doubles
-      List<double> d = new List<double>();
-      foreach (var col in pd.Values)
-      {
-        foreach (var val in col)
-        {
-          d.Add(val);
-        }
-      }
-      double[] dValues = d.ToArray();
-      double[] dOrdinates = pd.Ordinates;
-      ZStructPairedDataWrapper pds = DSS.ZStructPdNewDoubles(pd.Path.FullPath, ref dOrdinates, ref dValues, pd.Ordinates.Length, pd.Values.Count, pd.UnitsIndependent, pd.TypeIndependent, pd.UnitsDependent, pd.TypeDependent);
-      DSS.ZpdStore(ref ifltab, ref pds, storageFlag);
-      */
+
+      var values = pd.FlattenedValues;
+      ByteString labels = new ByteString(pd.Labels);
+
+      int status = DssNative.hec_dss_pdStore(dss, pd.Path.FullPath, pd.Ordinates,
+        pd.Ordinates.Length, values,
+        values.Length, pd.Ordinates.Length, pd.CurveCount, pd.UnitsIndependent,
+        pd.TypeIndependent, pd.UnitsDependent, pd.TypeDependent, 
+        labels.Data, labels.Data.Length);
+
     }
 
   }
