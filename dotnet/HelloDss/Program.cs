@@ -5,7 +5,7 @@ Console.WriteLine("Hello, World!");
 
 var fileName = Path.GetTempFileName();
 Console.WriteLine( "attempting to create '"+fileName+"'");
-using DssReader dss = new DssReader(fileName,0);
+using DssReader dss = new DssReader(fileName,1);
 var version = DssReader.GetVersion(fileName);
 Console.WriteLine(   "version:  "+version);
 version = DssReader.GetVersion("does not exist2");

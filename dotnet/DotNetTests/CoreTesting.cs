@@ -8,9 +8,22 @@ namespace DSSUnitTests
   [TestClass]
   public class CoreTesting
   {
-  
 
     [TestMethod]
+    public void TestVersionMethods()
+    {
+      var fn = TestUtility.GetCopyForTesting("sample7.dss");
+      var v = DssReader.GetVersion(fn);
+      Assert.AreEqual(7, v);
+      IntPtr dss;
+      var status = DssNative.hec_dss_open(fn, out dss);
+
+      v = DssNative.hec_dss_getVersion(dss);
+      Assert.AreEqual(7, v);
+      status = DssNative.hec_dss_close(dss);
+    }
+
+      [TestMethod]
     public void TestOpen()
     {
       long[] ifltab = new long[250];

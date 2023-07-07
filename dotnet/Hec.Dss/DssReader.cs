@@ -54,7 +54,7 @@ namespace Hec.Dss
     {
       if (!File.Exists(fileName))
         return 0;
-      return DssNative.hec_dss_getVersion(fileName);
+      return DssNative.hec_dss_getFileVersion(fileName);
     }
     
     private void OpenDssFile(string filename, int messageLevel)
@@ -616,7 +616,7 @@ namespace Hec.Dss
     /// <returns>6 or 7 depending on the version</returns>
     public int GetDSSFileVersion()
     {
-      return DssNative.hec_dss_version(dss);
+      return DssNative.hec_dss_getVersion(dss);
     }
 
 
@@ -790,115 +790,7 @@ namespace Hec.Dss
       DssNative.hec_dss_close(dss);
     }
 
-    public enum LevelID
-    {
-      /// <summary>
-      /// No messages, including errors (not guaranteed).  Highly discourage
-      /// </summary>
-      MESS_LEVEL_NONE = 0,
-      /// <summary>
-      /// Critical (Error) Messages.  Use discouraged.
-      /// </summary>
-      MESS_LEVEL_CRITICAL = 1,
-      /// <summary>
-      /// Minimal (terse) output:  zopen, zclose, critical errors.
-      /// </summary>
-      MESS_LEVEL_TERSE = 2,
-      /// <summary>
-      /// General Log Messages.  Default.
-      /// </summary>
-      MESS_LEVEL_GENERAL = 3,
-      /// <summary>
-      /// Diagnostic User Messages (e.g., input parameters)
-      /// </summary>
-      MESS_LEVEL_USER_DIAG = 4,
-      /// <summary>
-      /// Diagnostic Internal Messages level 1 (debug).   Not recommended for users
-      /// </summary>
-      MESS_LEVEL_INTERNAL_DIAG_1 = 5,
-      /// <summary>
-      /// Diagnostic Internal Messages level 2 (full debug)
-      /// </summary>
-      MESS_LEVEL_INTERNAL_DIAG_2 = 6,
-    }
-
-    public enum MethodID
-    {
-      /// <summary>
-      /// All methods both in DSS version 6 and 7
-      /// </summary>
-      MESS_METHOD_GLOBAL_ID = 0,
-      /// <summary>
-      /// All methods in DSS version 7 (includes those below)
-      /// </summary>
-      MESS_METHOD_GENERAL_ID = 1,
-      /// <summary>
-      /// Low-level read I/O
-      /// </summary>
-      MESS_METHOD_GET_ID = 2,
-      /// <summary>
-      /// Low-level write I/O
-      /// </summary>
-      MESS_METHOD_PUT_ID = 3,
-      /// <summary>
-      /// Read methods, except time series
-      /// </summary>
-      MESS_METHOD_READ_ID = 4,
-      /// <summary>
-      /// Write methods, except time series
-      /// </summary>
-      MESS_METHOD_WRITE_ID = 5,
-      /// <summary>
-      /// Operations for the file header
-      /// </summary>
-      MESS_METHOD_PERM_ID = 6,
-      /// <summary>
-      /// Opening and creating a DSS file
-      /// </summary>
-      MESS_METHOD_OPEN_ID = 7,
-      /// <summary>
-      /// Checking for records
-      /// </summary>
-      MESS_METHOD_CHECK_ID = 8,
-      /// <summary>
-      /// Locking and unlocking methods
-      /// </summary>
-      MESS_METHOD_LOCKING_ID = 9,
-      /// <summary>
-      /// Time series read operations
-      /// </summary>
-      MESS_METHOD_TS_READ_ID = 10,
-      /// <summary>
-      /// Time series write operations
-      /// </summary>
-      MESS_METHOD_TS_WRITE_ID = 11,
-      /// <summary>
-      /// Record alias methods
-      /// </summary>
-      MESS_METHOD_ALIAS_ID = 12,
-      /// <summary>
-      /// Record copying functions
-      /// </summary>
-      MESS_METHOD_COPY_ID = 13,
-      /// <summary>
-      /// General utility functions (rename, delete, etc.)
-      /// </summary>
-      MESS_METHOD_UTILITY_ID = 14,
-      /// <summary>
-      /// Cataloging
-      /// </summary>
-      MESS_METHOD_CATALOG_ID = 15,
-      /// <summary>
-      /// Checking file integrity
-      /// </summary>
-      MESS_METHOD_FILE_CHECK_ID = 16,
-      /// <summary>
-      /// Java Native Interface
-      /// </summary>
-      MESS_METHOD_JNI_ID = 17
-    }
   }
-
 
 }
 

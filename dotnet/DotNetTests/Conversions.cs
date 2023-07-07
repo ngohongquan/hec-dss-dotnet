@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace DotNetTests
 {
    [TestClass]
-   public class Converions
+   public class Conversions
    {
 
       [TestMethod]

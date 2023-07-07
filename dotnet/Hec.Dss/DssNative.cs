@@ -18,13 +18,13 @@ internal class DssNative
   public static extern int hec_dss_convertToVersion7(string fileName6, string fileName7);
 
   [DllImport("hecdss")]
-  public static extern int hec_dss_getVersion(string fileName);
+  public static extern int hec_dss_getFileVersion(string fileName);
 
   [DllImport("hecdss")]
    public static extern int hec_dss_close(IntPtr dss);
 
    [DllImport("hecdss")]
-   internal static extern int hec_dss_version(IntPtr dss);
+   internal static extern int hec_dss_getVersion(IntPtr dss);
 
   [DllImport("hecdss")]
   internal static extern int hec_dss_set_value(string name, int value);
